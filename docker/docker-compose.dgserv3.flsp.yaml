@@ -1,0 +1,39 @@
+version: "3.5"
+
+services:
+  flsp-app:
+    image: flsp-app:v0.0.0
+    env_file:
+      - flsp-app.vars.env
+    labels:
+      # tells traefik to route traffic with Host flsp.davgra.com to flsp-app
+      - "traefik.http.routers.flsp-app.rule=Host(`flsp.davgra.com`)"
+      # # sets up basic auth for user:heyo pass:boyo
+      # - "traefik.http.routers.flsp-app.middlewares=auth"
+      # - "traefik.http.middlewares.auth.basicauth.users=heyo:$$apr1$$7209vx7V$$x.rD5I1W1LPi3Kw7263YY."
+      # enable automatic certificate generation
+      - "traefik.http.routers.flsp-app.tls.certresolver=le"
+      - "traefik.http.routers.flsp-app.entrypoints=websecure"
+      # tell traefik to use different port
+      - "traefik.http.services.flsp-app.loadbalancer.server.port=3000"
+      # use dgserv3_network
+      - "traefik.docker.network=dgserv3_network"
+    ports:
+      - 3000:3000
+    networks:
+      - dgserv3_network
+      - flsp_network
+  flsp-db:
+    image: flsp-db:v0.0.0
+    env_file:
+      - flsp-db.vars.env
+    networks:
+      - flsp_network
+
+
+networks:
+  dgserv3_network:
+    name: dgserv3_network
+    external: true
+  flsp_network:
+    name: flsp_network
