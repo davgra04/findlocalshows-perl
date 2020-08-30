@@ -1,5 +1,7 @@
 # my .gitignore
 .vstags
+docker/flsp-app.vars.env
+docker/flsp-db.vars.env
 
 # Created by https://www.toptal.com/developers/gitignore/api/perl
 # Edit at https://www.toptal.com/developers/gitignore?templates=perl
