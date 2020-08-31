@@ -2,6 +2,8 @@
 .vstags
 docker/flsp-app.vars.env
 docker/flsp-db.vars.env
+docker/image-flsp-app/findlocalshows-perl/
+docker/image-flsp-db/schema.sql
 
 # Created by https://www.toptal.com/developers/gitignore/api/perl
 # Edit at https://www.toptal.com/developers/gitignore?templates=perl

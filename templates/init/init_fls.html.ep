@@ -1,0 +1,12 @@
+% layout "default";
+
+<h1>Welcome to FindLocalShows!</h1>
+<h2>Create Admin User</h2>
+%= form_for init => (method => "POST") => begin
+    Username:<br>
+    %= text_field "user"
+    <br>Password:<br>
+    %= password_field "pass"
+    <br>
+    %= submit_button "Create"
+% end

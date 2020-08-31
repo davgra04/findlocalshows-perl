@@ -27,6 +27,8 @@ services:
     image: flsp-db:v0.0.0
     env_file:
       - flsp-db.vars.env
+    ports:
+      - 5432:5432
     networks:
       - flsp_network
 
