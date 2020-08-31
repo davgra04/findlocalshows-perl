@@ -5,7 +5,7 @@ VERSION=`git describe --abbrev=0 --tags`
 LATEST_VERSION=`git describe --tags \`git rev-list --tags --max-count=1\``
 
 # bring in schema.sql
-cp ../../sql/schema.sql .
+cp ../../flsp-db/sql/schema.sql .
 
 # build image
 if [ ${VERSION} == ${LATEST_VERSION} ]; then

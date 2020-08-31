@@ -14,12 +14,17 @@ heading() {
 }
 
 build_app() {
-    heading "building app"
+    heading "building flsp-app"
     (cd image-flsp-app && bash build_image.sh)
 }
 
+build_core() {
+    heading "building flsp-core"
+    (cd image-flsp-core && bash build_image.sh)
+}
+
 build_db() {
-    heading "building db"
+    heading "building flsp-db"
     (cd image-flsp-db && bash build_image.sh)
 }
 
@@ -32,10 +37,13 @@ if [ "$1" == "none" ]; then
     :
 elif [ "$1" == "app" ]; then
     build_app || failed
+elif [ "$1" == "core" ]; then
+    build_core || failed
 elif [ "$1" == "db" ]; then
     build_db || failed
 else
     build_app || failed
+    build_core || failed
     build_db || failed
 fi
 

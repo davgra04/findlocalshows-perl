@@ -25,8 +25,8 @@ sub add_artist ($self, $artist) {
 		$upd_stmt->execute($row[0]);
 	} else {
 		# insert new if not present
-		my $ins_stmt = $self->{dbh}->prepare("INSERT INTO followed_artists (name) VALUES (?)");
-		$ins_stmt->execute($artist);
+		my $ins_stmt = $self->{dbh}->prepare("INSERT INTO followed_artists (name, first_query_complete, deleted) VALUES (?, ?, ?)");
+		$ins_stmt->execute($artist, 0, 0);
 	}
 }
 

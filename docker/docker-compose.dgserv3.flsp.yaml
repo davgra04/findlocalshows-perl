@@ -4,7 +4,7 @@ services:
   flsp-app:
     image: flsp-app:v0.0.0
     env_file:
-      - flsp-app.vars.env
+      - flsp.config.env
     labels:
       # tells traefik to route traffic with Host flsp.davgra.com to flsp-app
       - "traefik.http.routers.flsp-app.rule=Host(`flsp.davgra.com`)"
@@ -16,26 +16,33 @@ services:
       - "traefik.http.routers.flsp-app.entrypoints=websecure"
       # tell traefik to use different port
       - "traefik.http.services.flsp-app.loadbalancer.server.port=3000"
-      # use dgserv3_network
-      - "traefik.docker.network=dgserv3_network"
+      # use dgserv3
+      - "traefik.docker.network=dgserv3"
     ports:
       - 3000:3000
     networks:
-      - dgserv3_network
+      - dgserv3
       - flsp_network
+
+  flsp-core:
+    image: flsp-core:v0.0.0
+    env_file:
+      - flsp.config.env
+    networks:
+      - flsp_network
+
   flsp-db:
     image: flsp-db:v0.0.0
     env_file:
-      - flsp-db.vars.env
+      - flsp.config.env
     ports:
       - 5432:5432
     networks:
       - flsp_network
 
-
 networks:
-  dgserv3_network:
-    name: dgserv3_network
+  dgserv3:
+    name: dgserv3
     external: true
   flsp_network:
     name: flsp_network
