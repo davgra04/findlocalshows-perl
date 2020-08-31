@@ -5,13 +5,32 @@ use warnings;
 use experimental qw(signatures);
 
 use Mojo::Util qw(secure_compare);
+use Data::Dumper;
 
-my @SHOWLIST = (
-    {date => "2020/09/20 19:00:00", artist => "Tame Impala", venue => "White Oak Music Hall", location => "Houston, TX"},
-    {date => "2020/09/20 19:00:00", artist => "Unknown Mortal Orchestra", venue => "White Oak Music Hall", location => "Houston, TX"},
-    {date => "2020/09/20 19:00:00", artist => "King Gizzard and the Lizard Wizard", venue => "White Oak Music Hall", location => "Houston, TX"},
-    {date => "2020/09/20 19:00:00", artist => "LCD Soundsystem", venue => "White Oak Music Hall", location => "Houston, TX"},
-    {date => "2020/09/20 19:00:00", artist => "Mildlife", venue => "White Oak Music Hall", location => "Houston, TX"},
+my $SHOWINFO = {
+    num_shows => 5,
+    num_artists => 5,
+    shows => [
+        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Tame Impala", venue => "White Oak Music Hall", location => "Houston, TX"},
+        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Unknown Mortal Orchestra", venue => "A Cool Club", location => "Austin, TX"},
+        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "King Gizzard and the Lizard Wizard", venue => "An Intimate Venue", location => "San Antonio, TX"},
+        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "LCD Soundsystem", venue => "Some Festival", location => "El Paso, TX"},
+        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Mildlife", venue => "Toyota Center", location => "Houston, TX"},
+    ]
+};
+
+# my $SHOWINFO = {
+#     num_shows => 5,
+#     num_artists => 5,
+#     shows => [
+#         {artist => "Tame Impala"},
+#         {artist => "LCD Soundsystem"},
+#         {artist => "The Beatles"},
+#     ]
+# };
+
+
+(
 );
 
 sub new($class, $dbh) {
@@ -19,8 +38,9 @@ sub new($class, $dbh) {
 	return bless $hash, $class;
 }
 
-sub get_upcoming_shows ($self) {
-	return \@SHOWLIST;
+sub get_upcoming_shows ($self, $region) {
+    print Dumper($SHOWINFO);
+	return $SHOWINFO;
 }
 
 1;

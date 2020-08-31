@@ -18,6 +18,8 @@
 </div>
 % }
 
+% my $showinfo = shows->get_upcoming_shows($region);
+
 <div class="panel" id="stats">
     <div>Last Updated: ?? minutes ago</div>
     <div>Following <%= artists->get_count %> artists</div>
@@ -25,33 +27,35 @@
 </div>
 
 <div class="panel" id="showlist">
-    % for (my $i=0; $i<10; $i++) {
+    % my $show_count = 0;
+    % for my $show ( @{$showinfo->{shows}} ) {
 
-        % if ( $i ) {
+        % if ( $show_count ) {
             <hr>
         % }
 
         <div class="show">
             <div class="date">
                 <div class="date-month">
-                    MAY
+                    <%= $show->{date}->{month} %>
                 </div>
                 <div class="date-day">
-                    06
+                    <%= $show->{date}->{day} %>
                 </div>
                 <div class="date-dow">
-                    Wed
+                    <%= $show->{date}->{dow} %>
                 </div>
             </div>
             <div class="artist-and-place">
                 <div class="artist">
-                    Tame Impala
+                    <%= $show->{artist} %>
                 </div>
                 <div class="place">
-                    Houston, TX · Toyota Center
+                    <%= $show->{location} %> · <%= $show->{venue} %>
                 </div>
             </div>
         </div>
         
+        % $show_count++
     %}
 </div>
