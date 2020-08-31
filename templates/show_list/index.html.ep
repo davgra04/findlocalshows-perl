@@ -1,18 +1,56 @@
 % layout "default";
 
-<h1>FindLocalShows</h1>
-% if (my $msg = flash "message") {
-    <b><%= $msg %></b><br>
-% }
-<div class="debug">
-    <h3>DEBUG</h3>
-    <ul>
-        <li> <%= link_to Protected => "protected" %> </li>
-        <li> <%= link_to Login => "login" %> </li>
-    </ul>
+<div id="topbar">
+    <h1>FindLocalShows</h1>
+    <div id="topbar-links">
+    % if ( $logged_in ) {
+        <%= link_to Settings => "settings" %>
+        <%= link_to Logout => "logout" %>
+    % } else {
+        <%= link_to Login => "login" %>
+    % }
+    </div>
 </div>
-<div class="showlist">
+
+% if (my $msg = flash "message") {
+<div class="panel" id="message">
+    <b><%= $msg %></b><br>
+</div>
+% }
+
+<div class="panel" id="stats">
+    <div>Last Updated: 22 minutes ago</div>
+    <div>36 upcoming shows from 11 artists</div>
+</div>
+
+<div class="panel" id="showlist">
     % for (my $i=0; $i<10; $i++) {
-        <div>Show <%= $i %></div>
+
+        % if ( $i ) {
+            <hr>
+        % }
+
+        <div class="show">
+            <div class="date">
+                <div class="date-month">
+                    MAY
+                </div>
+                <div class="date-day">
+                    06
+                </div>
+                <div class="date-dow">
+                    Wed
+                </div>
+            </div>
+            <div class="artist-and-place">
+                <div class="artist">
+                    Tame Impala
+                </div>
+                <div class="place">
+                    Houston, TX · Toyota Center
+                </div>
+            </div>
+        </div>
+        
     %}
 </div>

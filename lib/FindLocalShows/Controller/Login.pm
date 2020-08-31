@@ -8,8 +8,8 @@ sub login ($self) {
 	return $self->render unless $self->users->check_password($user, $pass);
 
 	$self->session(user => $user);
-	$self->flash(message => "Thanks for logging in bruh.");
-	$self->redirect_to("protected");
+	$self->flash(message => "Welcome back $user.");
+	$self->redirect_to("index");
 }
 
 
@@ -17,6 +17,17 @@ sub logged_in ($self) {
 	return 1 if $self->session("user");
 	$self->redirect_to("login");
 	return undef;
+}
+
+
+sub logged_in_nonblock ($self) {
+	if ( $self->session("user") ) {
+		$self->stash(logged_in => 1);
+	} else {
+		$self->stash(logged_in => 0);
+	}
+
+	return 1;
 }
 
 

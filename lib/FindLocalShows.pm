@@ -5,7 +5,6 @@ use FindLocalShows::Model::Shows;
 use FindLocalShows::Model::Users;
 use DBI;
 
-
 sub startup ($self) {
 
 	# set secret
@@ -29,15 +28,17 @@ sub startup ($self) {
 
 	$r->any("/init")->to("init#init_fls")->name("init");
 
-	my $is_initialized = $r->under("/")->to("init#is_initialized");  # middleware to check if fls is initialized
+	# middleware to check if fls is initialized
+	my $is_initialized = $r->under("/")->to("init#is_initialized");
+	# middleware to check if logged in, redirect if not
+	my $logged_in = $is_initialized->under("/")->to("login#logged_in");
+	# middleware to check if logged in, set value in stash
+	my $logged_in_nb = $is_initialized->under("/")->to("login#logged_in_nonblock");
 
-	$is_initialized->any("/")->to("show_list#index")->name("index");
+	$logged_in_nb->any("/")->to("show_list#index")->name("index");
 	$is_initialized->any("/login")->to("login#login")->name("login");
 	$is_initialized->get("/logout")->to("login#logout");
-
-	my $logged_in = $r->under("/")->to("login#logged_in");  # middleware to check if logged in
-
-	$logged_in->get("/protected")->to("login#protected");
+	$logged_in->get("/settings")->to("settings#settings");
 
 }
 

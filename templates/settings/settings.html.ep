@@ -1,0 +1,18 @@
+% layout "default";
+
+<div id="topbar">
+    <h1>Settings</h1>
+    <div id="topbar-links">
+        <div> <%= link_to "Back to Shows" => "index" %> </div>
+    </div>
+</div>
+
+<div class="panel" id="settings-followed-artists">
+    <h3>Followed Artists</h3>
+    <p>TODO</p>
+</div>
+
+<div class="panel" id="settings-default-region">
+    <h3>Default Region</h3>
+    <p>TODO</p>
+</div>

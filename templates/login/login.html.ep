@@ -1,14 +1,24 @@
 % layout "default";
-<h1>Login</h1>
-%= form_for login => (method => "POST") => begin
-    % if (param "user") {
-        <b>Wrong name or password, please try again.</b><br>
-    % }
-    Name:<br>
-    %= text_field "user"
-    <br>Password:<br>
-    %= password_field "pass"
-    <br>
-    %= submit_button "Login"
-% end
+
+<div id="topbar">
+    <h1>Log In</h1>
+    <div id="topbar-links">
+        <div> <%= link_to "Back to Shows" => "index" %> </div>
+    </div>
+</div>
+
+<div class="panel" id="login-form">
+    %= form_for login => (method => "POST") => begin
+        % if (param "user") {
+            <b>Wrong name or password, please try again.</b><br>
+        % }
+        Name:<br>
+        %= text_field "user"
+        <br>Password:<br>
+        %= password_field "pass"
+        <br>
+        %= submit_button "Login"
+    % end
+</div>
+
 

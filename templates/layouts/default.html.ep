@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html>
-    <head><title>Login Manager</title></head>
-    <body><%= content %></body>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>FindLocalShows</title>
+        <link rel="stylesheet" href="/styles.css">
+    </head>
+    <body>
+        <%= content %>
+        <div id="footer">
+            <div>FindLocalShows 2020</div>
+            <div>David Graves</div>
+        </div>
+    </body>
 </html>

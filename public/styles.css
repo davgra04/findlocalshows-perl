@@ -1,0 +1,129 @@
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+/* TOP BAR STUFF */
+
+#topbar {
+    background-color: #00c0d3;
+    display: flex;
+    padding: 10px;
+    /* justify-content: center; */
+    align-items: center;
+    color: white;
+}
+
+#topbar-links {
+    margin-left: auto;
+    display: flex;
+    text-decoration-line: none;
+}
+
+#topbar-links a {
+    margin: 10px;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 5px;
+    /* background-color: lightblue; */
+    /* background-color: black; */
+    text-decoration: none;
+    color: white;
+}
+
+#topbar-links a:hover {
+    background-color: white;
+    color: #00c0d3;
+}
+
+/* PANEL STUFF */
+
+.panel {
+    border: 1px solid lightgrey;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* FOOTER STUFF */
+
+#footer {
+    font-size: 25%;
+    color: #00c0d3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 50px;
+}
+
+#footer div {
+    margin-top: 10px;
+}
+
+/* SHOW LIST STUFF */
+
+hr {
+    border: 0;
+    margin: 0;
+    width: 100%;
+    height: 1px;
+    background: lightgrey;
+}
+
+.show {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    /* border: solid black 1px; */
+    margin-top: .3rem;
+    margin-bottom: .3rem;
+    background-color: white;
+    padding: 0.1rem;
+    /* border-bottom: 1px solid lightgrey; */
+    /* box-shadow: .1rem .1rem #0096A3; */
+    /* border-radius: .5rem; */
+    
+}
+
+.artist-and-place {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+}
+
+/* DATE STUFF */
+
+.date {
+    padding: 0rem 1rem 0rem 1rem;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+}
+
+.date-dow, .date-month, .date-day {
+    text-align: center;
+}
+
+.date-month {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.date-day {
+    font-size: 2.6rem;
+    line-height: 2.4rem;
+}
+
+.date-dow {
+    font-size: 0.8rem;
+}
+
+/* ARTIST/PLACE STUFF */
+
+.artist {
+    font-size: 1.6rem;
+    color: #00c0de;
+}
+

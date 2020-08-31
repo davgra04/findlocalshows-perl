@@ -11,6 +11,9 @@ sub index ($self) {
 	# $self->flash(message => "Thanks for logging in bruh.");
 	# $self->redirect_to("protected");
 
+	# my $logged_in = $self->app->users->
+	# $self->stash(logged_in => 0);
+
     $self->app->log->debug("hit index");
 }
 

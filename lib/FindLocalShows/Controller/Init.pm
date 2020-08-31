@@ -14,6 +14,7 @@ sub init_fls ($self) {
 
     $self->app->log->debug("added admin user $user");
     $self->users->add_user($user, $pass);
+	$self->flash(message => "FindLocalShows initialized! Please log in to add artists.");
     $self->redirect_to("index");
 }
 
