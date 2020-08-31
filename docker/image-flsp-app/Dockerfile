@@ -3,6 +3,7 @@ FROM perl:5.32
 # install perl dependencies
 RUN cpan Mojolicious
 RUN cpan DBI
+RUN cpan DBD::Pg
 
 # copy fls to image
 COPY ./findlocalshows-perl /usr/src/findlocalshows-perl

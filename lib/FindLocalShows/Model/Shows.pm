@@ -14,8 +14,10 @@ my @SHOWLIST = (
     {date => "2020/09/20 19:00:00", artist => "Mildlife", venue => "White Oak Music Hall", location => "Houston, TX"},
 );
 
-sub new { bless {}, shift }
-
+sub new($class, $dbh) {
+	my $hash = {dbh => $dbh};
+	return bless $hash, $class;
+}
 
 sub get_upcoming_shows ($self) {
 	return \@SHOWLIST;

@@ -127,3 +127,32 @@ hr {
     color: #00c0de;
 }
 
+/* SETTINGS STUFF */
+
+#followed-artists-list {
+    display: grid;
+    /* grid-template-rows: repeat( auto-fit, minmax(250px, 1fr) ); */
+    /* grid-template-rows: 1fr 1fr 1fr; */
+    /* grid-template-columns: 1fr 1fr 1fr; */
+     grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+    /* grid-auto-flow: column; */
+}
+
+
+.followed-artists-list-control {
+    display: flex;
+    align-items: center;
+}
+
+/* .close-button {
+    margin: 5px;
+} */
+
+.del-btn {
+    background-color: transparent;
+    border: 0;
+    margin: 5px;
+    padding: 0px;
+    cursor: pointer;
+}
+

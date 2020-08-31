@@ -18,6 +18,13 @@ CREATE TABLE artists (
     updated TIMESTAMP
 );
 
+CREATE TABLE followed_artists (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    deleted BOOLEAN,
+    artist_id INT REFERENCES artists(id)
+);
+
 CREATE TABLE venues (
     id SERIAL PRIMARY KEY,
     name TEXT,

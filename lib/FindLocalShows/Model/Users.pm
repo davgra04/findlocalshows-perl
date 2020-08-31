@@ -7,9 +7,7 @@ use experimental qw(signatures);
 use Mojo::Util qw(secure_compare);
 use Data::Dumper;
 
-sub new { 
-	my $class = shift;
-	my $dbh = shift;
+sub new($class, $dbh) {
 	my $hash = {dbh => $dbh};
 	return bless $hash, $class;
 }

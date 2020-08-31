@@ -19,8 +19,9 @@
 % }
 
 <div class="panel" id="stats">
-    <div>Last Updated: 22 minutes ago</div>
-    <div>36 upcoming shows from 11 artists</div>
+    <div>Last Updated: ?? minutes ago</div>
+    <div>Following <%= artists->get_count %> artists</div>
+    <div>?? upcoming shows from ?? artists</div>
 </div>
 
 <div class="panel" id="showlist">

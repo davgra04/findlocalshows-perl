@@ -7,9 +7,30 @@
     </div>
 </div>
 
+% if (my $msg = flash "message") {
+<div class="panel" id="message">
+    <b><%= $msg %></b><br>
+</div>
+% }
+
 <div class="panel" id="settings-followed-artists">
     <h3>Followed Artists</h3>
-    <p>TODO</p>
+
+    %= form_for settings => (method => "POST") => begin
+        %= text_field "new-artist"
+        %= submit_button "Add Artist"
+    % end
+    %= form_for settings => (method => "POST") => begin
+    <div id="followed-artists-list">
+        % for my $artist ( artists->get_artists ) {
+            <div class="followed-artists-list-control">
+                <button class="del-btn" type="submit" name="remove-id" value=<%= $artist->{id} %> ><img class="close-button" src="/close-black-18dp.svg"></button>
+                <div> <%= $artist->{name} %> </div>
+            </div>
+        %}
+    </div>
+    % end
+
 </div>
 
 <div class="panel" id="settings-default-region">
