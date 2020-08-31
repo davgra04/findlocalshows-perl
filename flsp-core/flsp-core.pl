@@ -159,7 +159,7 @@ sub check_new_artists($dbh) {
         # query bands in town
         my $artist_info = query_bandsintown_artist($artist);
         # INFO(Dumper($artist_info));
-        continue unless $artist_info;   # continue if no data
+        next unless $artist_info;   # continue if no data
 
         # update flsp database
         update_artist($dbh, $id, $artist, $artist_info);

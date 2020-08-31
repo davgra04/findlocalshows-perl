@@ -23,7 +23,7 @@
 <div class="panel" id="stats">
     <div>Last Updated: ?? minutes ago</div>
     <div>Following <%= artists->get_count %> artists</div>
-    <div>?? upcoming shows from ?? artists</div>
+    <div><%= $showinfo->{num_shows} %> upcoming shows from <%= $showinfo->{num_artists} %> artists in <%= $region %></div>
 </div>
 
 <div class="panel" id="showlist">
