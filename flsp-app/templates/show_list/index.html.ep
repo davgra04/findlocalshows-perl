@@ -21,7 +21,6 @@
 % my $showinfo = shows->get_upcoming_shows($region);
 
 <div class="panel" id="stats">
-    <div>Last Updated: ?? minutes ago</div>
     <div>Following <%= artists->get_count %> artists</div>
     <div><%= $showinfo->{num_shows} %> upcoming shows from <%= $showinfo->{num_artists} %> artists in <%= $region %></div>
 </div>
@@ -64,4 +63,8 @@
         
         % $show_count++
     %}
+
+    % unless ( $show_count ) {
+        <p id="no-shows-msg">no upcoming shows</p>
+    % }
 </div>

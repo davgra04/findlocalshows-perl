@@ -106,6 +106,10 @@ hr {
     justify-content: space-around;
 }
 
+#no-shows-msg {
+    color: lightgrey;
+}
+
 /* DATE STUFF */
 
 .date {

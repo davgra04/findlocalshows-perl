@@ -83,7 +83,7 @@ sub update_artist($dbh, $id, $artist, $artist_info) {
         unless ( $rv ) {
             ERROR("problem inserting artist details: " . $ins_stmt->errstr);
             $dbh->rollback;
-            continue
+            next
         }
 
         ### get id of inserted row
@@ -95,7 +95,7 @@ sub update_artist($dbh, $id, $artist, $artist_info) {
         unless ( $rv ) {
             ERROR("problem marking artist as initialized: " . $upd_stmt->errstr);
             $dbh->rollback;
-            continue
+            next
         }
 
         ### finalize transaction
@@ -159,7 +159,7 @@ sub check_new_artists($dbh) {
         # query bands in town
         my $artist_info = query_bandsintown_artist($artist);
         # INFO(Dumper($artist_info));
-        next unless $artist_info;   # continue if no data
+        next unless $artist_info;   # next if no data
 
         # update flsp database
         update_artist($dbh, $id, $artist, $artist_info);
@@ -194,7 +194,7 @@ sub query_all_artists($dbh) {
         my @name_row = $sel_stmt->fetchrow_array();
         unless ( @name_row ) {
             ERROR("Could not find name for artist_id $id in artists table");
-            continue;
+            next;
         }
         my $artist = $name_row[0];
 
