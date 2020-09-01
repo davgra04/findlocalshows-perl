@@ -7,44 +7,44 @@ use experimental qw(signatures);
 use Mojo::Util qw(secure_compare);
 use Data::Dumper;
 
+
 sub new($class, $dbh) {
 	my $hash = {dbh => $dbh};
 	return bless $hash, $class;
 }
 
 
-sub add_user ($self, $user, $pass) {
+sub add_user ($self, $user, $encrypted_pass) {
+	# insert into DB
 	my $ins_stmt = $self->{dbh}->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-	$ins_stmt->execute($user, $pass);
+	$ins_stmt->execute($user, $encrypted_pass);
 }
 
 
-sub check_password ($self, $user, $pass) {
-
+sub get_password_from_db ($self, $user) {
 	my $sel_stmt = $self->{dbh}->prepare("SELECT password FROM users WHERE username = ?");
 	$sel_stmt->execute($user);
-
-	my ($saved_pass) = $sel_stmt->fetchrow();
-	# my @row = $sel_stmt->selectrow_array;
-	print "IN check_password RIGHT NOW";
-	print "\$saved_pass: " . Dumper($saved_pass);
-
-	# Success
-	return 1 if $saved_pass && secure_compare $saved_pass, $pass;
-
-	# Fail
-	return undef;
+	my ($encrypted_pass) = $sel_stmt->fetchrow();
+	return $encrypted_pass;
 }
+
+# sub check_password ($self, $user, $entered_pass) {
+# 	my $sel_stmt = $self->{dbh}->prepare("SELECT password FROM users WHERE username = ?");
+# 	$sel_stmt->execute($user);
+# 	my ($encrypted_pass) = $sel_stmt->fetchrow();
+
+# 	# Success
+# 	return 1 if $encrypted_pass && $self->bcrypt_validate( $entered_pass, $encrypted_pass );
+
+# 	# Fail
+# 	return undef;
+# }
 
 # has_admin_user returns true if FindLocalShows has already been initialized with
 # a user and a password. Returns false otherwise.
 sub has_admin_user ($self) {
 	my @row = $self->{dbh}->selectrow_array("SELECT COUNT(*) FROM users");
-	# print Dumper(@row);
-
-	if ( $row[0] ) {
-		return 1;
-	}
+	return 1 if $row[0];
 	return undef;
 }
 

@@ -1,5 +1,6 @@
 package FindLocalShows;
 use Mojo::Base "Mojolicious", -signatures;
+use Mojolicious::Plugin::Bcrypt;
 
 use FindLocalShows::Model::Artists;
 use FindLocalShows::Model::Shows;
@@ -10,6 +11,9 @@ sub startup ($self) {
 
 	# set secret
 	$self->secrets(["bada bing bada boom"]);
+
+	# initialize bcrypt plugin
+	$self->plugin("bcrypt", { cost => 8 });
 
 	# connect to db
 	my $dbh;
@@ -39,7 +43,6 @@ sub startup ($self) {
 	# set up routes
 	my $r = $self->routes;
 
-	$r->any("/init")->to("init#init_fls")->name("init");
 
 	# middleware to check if fls is initialized
 	my $is_initialized = $r->under("/")->to("init#is_initialized");
@@ -48,6 +51,7 @@ sub startup ($self) {
 	# middleware to check if logged in, set value in stash
 	my $logged_in_nb = $is_initialized->under("/")->to("login#logged_in_nonblock");
 
+	$r->any("/init")->to("init#init_fls")->name("init");
 	$logged_in_nb->any("/")->to("show_list#index")->name("index");
 	$is_initialized->any("/login")->to("login#login")->name("login");
 	$is_initialized->get("/logout")->to("login#logout");

@@ -8,6 +8,7 @@ RUN cpan DBD::Pg
 RUN cpan DateTime
 RUN cpan DateTime::Format::Strptime
 RUN cpan JSON::XS
+RUN cpan Mojolicious::Plugin::Bcrypt
 
 
 # copy fls to image

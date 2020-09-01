@@ -7,11 +7,14 @@
     </div>
 </div>
 
+% if (my $msg = flash "message") {
+<div class="panel" id="message">
+    <b><%= $msg %></b><br>
+</div>
+% }
+
 <div class="panel" id="login-form">
     %= form_for login => (method => "POST") => begin
-        % if (param "user") {
-            <b>Wrong name or password, please try again.</b><br>
-        % }
         Name:<br>
         %= text_field "user"
         <br>Password:<br>

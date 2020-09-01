@@ -4,8 +4,14 @@ use Mojo::Base "Mojolicious::Controller", -signatures;
 
 sub login ($self) {
 	my $user = $self->req->body_params->param("user") || "";
-	my $pass = $self->req->body_params->param("pass") || "";
-	return $self->render unless $self->users->check_password($user, $pass);
+	my $entered_pass = $self->req->body_params->param("pass") || "";
+	my $stored_pass = $self->users->get_password_from_db($user);
+
+	# unless ( $self->users->check_password($user, $pass) ) {
+	unless ( $stored_pass && $self->bcrypt_validate( $entered_pass, $stored_pass ) ) {
+		$self->flash(message => "Invalid username or password.");
+		return $self->render;
+	}
 
 	$self->session(user => $user);
 	$self->flash(message => "Welcome back $user.");

@@ -12,8 +12,13 @@ sub init_fls ($self) {
     # render init page if no POST params provided
     return $self->render if ($user eq "" or $pass eq "");
 
+	# encrypt password with bcrypt
+	my $encrypted_pass = $self->bcrypt($pass);
+
+    # add user to DB
+    $self->users->add_user($user, $encrypted_pass);
     $self->app->log->debug("added admin user $user");
-    $self->users->add_user($user, $pass);
+
 	$self->flash(message => "FindLocalShows initialized! Please log in to add artists.");
     $self->redirect_to("index");
 }
