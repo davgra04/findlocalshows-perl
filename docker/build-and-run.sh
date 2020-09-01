@@ -48,6 +48,6 @@ else
 fi
 
 heading "running docker-compose"
-docker-compose -f docker-compose.dgserv3.flsp.yaml up
+docker-compose -f docker-compose.dgserv3.flsp.yaml up -d
 
 

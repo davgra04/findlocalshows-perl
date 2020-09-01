@@ -35,7 +35,15 @@ my $SHOWINFO = {
 
 
 sub new($class, $dbh) {
-	my $hash = {dbh => $dbh};
+
+	my $hash = {
+        dbh => $dbh, 
+        strp => DateTime::Format::Strptime->new(
+            pattern => "%Y-%m-%dT%H:%M:%S",
+            locale => "en_US",
+            time_zone => "America/Chicago",
+        )
+    };
 	return bless $hash, $class;
 }
 
@@ -61,33 +69,23 @@ sub get_upcoming_shows ($self, $region) {
     my $dt_now = DateTime->now;
     my $dt_now_str = $dt_now->strftime("%Y-%m-%dT%H:%M:%S");
 
-    my $sql = "SELECT artist_id, datetime, venue, region, city FROM events WHERE datetime > '$dt_now_str'";
-    my $all_shows = $self->{dbh}->selectall_arrayref($sql);
+    my $sel_shows = $self->{dbh}->prepare("SELECT artist_id, datetime, venue, region, city FROM events WHERE datetime > ? AND region = ? AND country = ? ORDER BY datetime ASC");
+    my $rv = $sel_shows->execute($dt_now_str, $region, "United States");
 
-    say "#"x80;
-    say "dt_now_str: $dt_now_str";
-    say "sql: $sql";
-    # say "all_shows: " . Dumper($all_shows);
+    my @shows;
+    while ( my @row = $sel_shows->fetchrow() ) {
+        my ($id, $datetime, $venue_json, $show_region, $city) = @row;
 
-    my $strp = DateTime::Format::Strptime->new(
-        pattern => "%Y-%m-%dT%H:%M:%S",
-        locale => "en_US",
-        time_zone => "America/Chicago",
-    );
-
-    # filter for current artists
-    my @shows = ();
-    for my $show ( @$all_shows ) {
-        my ($id, $datetime, $venue_json, $show_region, $city) = @$show;
-        if ( ( exists $artist_ids{$id} ) and ($show_region eq $region) ) {
+        if ( exists $artist_ids{$id} ) {
             $artist_ids{$id}++;
 
             my $venue = decode_json $venue_json;
             my $name = $artist_names{$id};
-            my $show_dt = $strp->parse_datetime($datetime);
+            my $show_dt = $self->{strp}->parse_datetime($datetime);
 
             push(@shows, {
                 date => { 
+                    year => $show_dt->strftime("%Y"),
                     month => $show_dt->strftime("%b"),
                     day => $show_dt->strftime("%d"), 
                     dow => $show_dt->strftime("%a"), 
@@ -116,7 +114,7 @@ sub get_upcoming_shows ($self, $region) {
 
     # say("shows: ".Dumper(@shows));
     # say("showinfo: ".Dumper($showinfo));
-    say("artist_ids: ".Dumper(%artist_ids));
+    # say("artist_ids: ".Dumper(%artist_ids));
 
 	# return $SHOWINFO;
     return $showinfo;

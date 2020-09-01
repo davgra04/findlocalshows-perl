@@ -72,6 +72,16 @@ hr {
     background: lightgrey;
 }
 
+.year-sep {
+    /* border: 1px solid lightgrey; */
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #00c0d3;
+    font-size: x-large;
+    font-weight: bold;
+    color: white;
+}
+
 .show {
     display: flex;
     flex-flow: row nowrap;
@@ -83,8 +93,11 @@ hr {
     padding: 0.1rem;
     /* border-bottom: 1px solid lightgrey; */
     /* box-shadow: .1rem .1rem #0096A3; */
-    /* border-radius: .5rem; */
-    
+    /* border-radius: .5rem; */   
+}
+
+.show:hover {
+    background-color: #E6F9FB;
 }
 
 .artist-and-place {

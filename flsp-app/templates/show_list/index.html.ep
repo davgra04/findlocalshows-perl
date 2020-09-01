@@ -28,9 +28,15 @@
 
 <div class="panel" id="showlist">
     % my $show_count = 0;
+    % my $cur_year = 0;
     % for my $show ( @{$showinfo->{shows}} ) {
 
-        % if ( $show_count ) {
+        % if ( $show->{date}->{year} ne $cur_year ) {
+            % $cur_year = $show->{date}->{year};
+            <div class="year-sep">
+                <%= $cur_year %>
+            </div>
+        % } elsif ( $show_count ) {
             <hr>
         % }
 
