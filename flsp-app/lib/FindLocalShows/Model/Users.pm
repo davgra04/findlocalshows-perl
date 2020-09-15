@@ -28,17 +28,6 @@ sub get_password_from_db ($self, $user) {
 	return $encrypted_pass;
 }
 
-# sub check_password ($self, $user, $entered_pass) {
-# 	my $sel_stmt = $self->{dbh}->prepare("SELECT password FROM users WHERE username = ?");
-# 	$sel_stmt->execute($user);
-# 	my ($encrypted_pass) = $sel_stmt->fetchrow();
-
-# 	# Success
-# 	return 1 if $encrypted_pass && $self->bcrypt_validate( $entered_pass, $encrypted_pass );
-
-# 	# Fail
-# 	return undef;
-# }
 
 # has_admin_user returns true if FindLocalShows has already been initialized with
 # a user and a password. Returns false otherwise.

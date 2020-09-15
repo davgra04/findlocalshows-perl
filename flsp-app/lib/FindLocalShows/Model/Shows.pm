@@ -11,28 +11,6 @@ use JSON::XS;
 use DateTime;
 use DateTime::Format::Strptime;
 
-my $SHOWINFO = {
-    num_shows => 5,
-    num_artists => 5,
-    shows => [
-        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Tame Impala", venue => "White Oak Music Hall", location => "Houston, TX"},
-        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Unknown Mortal Orchestra", venue => "A Cool Club", location => "Austin, TX"},
-        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "King Gizzard and the Lizard Wizard", venue => "An Intimate Venue", location => "San Antonio, TX"},
-        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "LCD Soundsystem", venue => "Some Festival", location => "El Paso, TX"},
-        {date => { month => "Sep", day => 14, dow => "Fri" }, artist => "Mildlife", venue => "Toyota Center", location => "Houston, TX"},
-    ]
-};
-
-# my $SHOWINFO = {
-#     num_shows => 5,
-#     num_artists => 5,
-#     shows => [
-#         {artist => "Tame Impala"},
-#         {artist => "LCD Soundsystem"},
-#         {artist => "The Beatles"},
-#     ]
-# };
-
 
 sub new($class, $dbh) {
 
@@ -48,7 +26,6 @@ sub new($class, $dbh) {
 }
 
 sub get_upcoming_shows ($self, $region) {
-    # print Dumper($SHOWINFO);
 
     my $showinfo = { shows => [] };
 
@@ -58,7 +35,6 @@ sub get_upcoming_shows ($self, $region) {
     for my $row ( @$artist_names_array ) {
         $artist_names{$row->[0]} = $row->[1];
     }
-
 
     # obtain artist ids
     my $artist_ids_array = $self->{dbh}->selectcol_arrayref("SELECT artist_id FROM followed_artists WHERE deleted IS FALSE AND first_query_complete IS TRUE");
