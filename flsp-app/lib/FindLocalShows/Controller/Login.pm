@@ -3,8 +3,8 @@ use Mojo::Base "Mojolicious::Controller", -signatures;
 
 
 sub login ($self) {
-	my $user = $self->req->body_params->param("user") || "";
-	my $entered_pass = $self->req->body_params->param("pass") || "";
+	my $user = $self->req->body_params->param("user") // "";
+	my $entered_pass = $self->req->body_params->param("pass") // "";
 	my $stored_pass = $self->users->get_password_from_db($user);
 
 	unless ( $stored_pass && $self->bcrypt_validate( $entered_pass, $stored_pass ) ) {

@@ -3,8 +3,8 @@ use Mojo::Base "Mojolicious::Controller", -signatures;
 
 
 sub init_fls ($self) {
-	my $user = $self->req->body_params->param("user") || "";
-	my $pass = $self->req->body_params->param("pass") || "";
+	my $user = $self->req->body_params->param("user") // "";
+	my $pass = $self->req->body_params->param("pass") // "";
 
     # redirect to / if fls already initialized
     $self->redirect_to("index") if $self->app->users->has_admin_user;

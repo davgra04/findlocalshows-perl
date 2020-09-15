@@ -212,9 +212,9 @@ sub query_all_artists($dbh) {
 # pull configuration from ENV
 ################################################################################
 
-my $dbhost = $ENV{"FLSDB_HOST"} || "localhost";
-my $query_all_period = $ENV{"QUERY_ALL_PERIOD"} || 3600;
-my $query_new_artist_period = $ENV{"QUERY_NEW_ARTIST_PERIOD"} || 60;
+my $dbhost = $ENV{"FLSDB_HOST"} // "localhost";
+my $query_all_period = $ENV{"QUERY_ALL_PERIOD"} // 3600;
+my $query_new_artist_period = $ENV{"QUERY_NEW_ARTIST_PERIOD"} // 60;
 $bit_api_key = $ENV{"BANDSINTOWN_API_KEY"} || die "Must define BANDSINTOWN_API_KEY env var!";
 
 ################################################################################

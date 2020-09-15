@@ -19,7 +19,7 @@ sub startup ($self) {
 
 	# connect to db
 	my $dbh;
-	my $dbhost = $ENV{"FLSDB_HOST"} || "localhost";
+	my $dbhost = $ENV{"FLSDB_HOST"} // "localhost";
 
 	$self->app->log->debug("connecting to database on host $dbhost");
 

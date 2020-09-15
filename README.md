@@ -1,9 +1,9 @@
 findlocalshows-perl
 ===================
 
-![](images/findlocalshows-perl.png)
-
 An implementation of FindLocalShows using Perl and the Mojolicious web framework.
+
+![](images/findlocalshows-perl.png)
 
 ## Build
 
