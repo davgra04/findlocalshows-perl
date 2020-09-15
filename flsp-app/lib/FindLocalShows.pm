@@ -7,7 +7,7 @@ use FindLocalShows::Model::Shows;
 use FindLocalShows::Model::Users;
 use DBI;
 
-our $VERSION = '1.0';
+our $VERSION = '0.0.1';
 
 sub startup ($self) {
 

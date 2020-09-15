@@ -1,11 +1,10 @@
 FROM perl:5.32
 
 # install perl dependencies
-ARG ROOT="/usr/src/flsp-app"
+ARG ROOT="/usr/src/flsp-core"
 
 WORKDIR $ROOT
 COPY Makefile.PL .
-COPY lib/FindLocalShows.pm ./lib/FindLocalShows.pm
 
 RUN perl Makefile.PL \
   && cpanm --no-wget --installdeps --notest . \
@@ -14,7 +13,7 @@ RUN perl Makefile.PL \
 
 COPY . .
 
-CMD [ "./script/find_local_shows", "daemon" ]
+CMD [ "bash", "run-flsp-core.sh" ]
 
-LABEL version="1.0" \
-  description="FindLocalShows"
+LABEL version="0.0.1" \
+  description="FindLocalShows-Core"

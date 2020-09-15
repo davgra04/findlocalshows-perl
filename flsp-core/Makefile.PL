@@ -4,10 +4,10 @@ use warnings;
 use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
-    NAME             => "FindLocalShows",
-    VERSION_FROM     => "lib/FindLocalShows.pm",
+    NAME             => "FindLocalShows-Core",
+    VERSION          => "0.0.1",
     AUTHOR           => q{David <dgravesdev@gmail.com>},
-    ABSTRACT         => "An implementation of FindLocalShows using Perl and the Mojolicious web framework.",
+    ABSTRACT         => "Background service for updating FindLocalShows database with new shows.",
     LICENSE          => "artistic_2",
     MIN_PERL_VERSION => "5.014",
     CONFIGURE_REQUIRES => {
@@ -15,13 +15,13 @@ my %WriteMakefileArgs = (
     },
     PREREQ_PM => {
         "Data::Dumper" => "0",
-        "DateTime::Format::Strptime" => "0",
-        "DateTime" => "0",
         "DBD::Pg" => "0",
         "DBI" => "0",
         "JSON::XS" => "0",
-        "Mojolicious::Plugin::Bcrypt" => "0",
-        "Mojolicious" => "8.59",
+        "Log::Log4perl" => "0",
+        "LWP::Protocol::https" => "0",
+        "LWP::UserAgent" => "0",
+        "URL::Encode" => "0",
     },
     dist  => { COMPRESS => "gzip -9f", SUFFIX => "gz", },
     clean => { FILES => "*.tar.gz" },
