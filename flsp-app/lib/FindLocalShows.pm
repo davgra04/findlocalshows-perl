@@ -11,11 +11,12 @@ our $VERSION = '0.0.1';
 
 # get_secret will try to obtain the application secret from the database, then
 # from the environment configuration, and die if niether provide it
-sub get_secret($self, $dbh) {
+sub get_secret ( $self, $dbh ) {
 
     # try to obtain secret from database
-    my $row = $dbh->selectrow_arrayref("SELECT secret FROM settings ORDER BY id ASC LIMIT 1");
-    die $dbh->errstr if ( defined $dbh->errstr );  # encountered database error
+    my $row = $dbh->selectrow_arrayref(
+        "SELECT secret FROM settings ORDER BY id ASC LIMIT 1");
+    die $dbh->errstr if ( defined $dbh->errstr );   # encountered database error
     if ( defined $row ) {
         $self->app->log->debug("using flsp-app secret from database");
         return $row->[0];
@@ -24,7 +25,8 @@ sub get_secret($self, $dbh) {
     # try to obtain secret from environment
     $self->app->log->debug("using flsp-app secret from environment");
     my $secret = $ENV{"FLSAPP_SECRET"};
-    die "Must provide FLSAPP_SECRET environment variable!" unless defined($secret);
+    die "Must provide FLSAPP_SECRET environment variable!"
+      unless defined($secret);
 
     # add secret to database
     my $sth = $dbh->prepare("INSERT INTO settings (secret) VALUES (?)");
@@ -33,7 +35,6 @@ sub get_secret($self, $dbh) {
 
 }
 
-
 sub startup ($self) {
 
     # connect to db
@@ -41,8 +42,9 @@ sub startup ($self) {
     my $dbhost = $ENV{"FLSDB_HOST"} // "localhost";
 
     $self->app->log->debug("connecting to database on host $dbhost");
-    for (my $i=0; $i<5; $i++) {
-        $dbh = DBI->connect("dbi:Pg:dbname=flsdb;host=$dbhost;port=5432","fls","fls",{AutoCommit => 1, RaiseError => 0});
+    for ( my $i = 0 ; $i < 5 ; $i++ ) {
+        $dbh = DBI->connect( "dbi:Pg:dbname=flsdb;host=$dbhost;port=5432",
+            "fls", "fls", { AutoCommit => 1, RaiseError => 0 } );
         last if $dbh;
         sleep 5;
         $self->app->log->debug("  retrying...");
@@ -52,16 +54,21 @@ sub startup ($self) {
 
     # set secret
     my $secret = $self->get_secret($dbh);
-    $self->secrets([$secret]);
+    $self->secrets( [$secret] );
 
     # initialize bcrypt plugin
-    $self->plugin("bcrypt", { cost => 8 });
+    $self->plugin( "bcrypt", { cost => 8 } );
 
     # prepare helpers
     # $self->helper(db => sub { $dbh });
-    $self->helper(users => sub { state $users = FindLocalShows::Model::Users->new($dbh) });
-    $self->helper(shows => sub { state $shows = FindLocalShows::Model::Shows->new($dbh) });
-    $self->helper(artists => sub { state $artists = FindLocalShows::Model::Artists->new($dbh) });
+    $self->helper(
+        users => sub { state $users = FindLocalShows::Model::Users->new($dbh) }
+    );
+    $self->helper(
+        shows => sub { state $shows = FindLocalShows::Model::Shows->new($dbh) }
+    );
+    $self->helper( artists =>
+          sub { state $artists = FindLocalShows::Model::Artists->new($dbh) } );
 
     # set up routes
     my $r = $self->routes;
@@ -73,7 +80,8 @@ sub startup ($self) {
     my $logged_in = $is_initialized->under("/")->to("login#logged_in");
 
     # middleware to check if logged in, set value in stash
-    my $logged_in_nb = $is_initialized->under("/")->to("login#logged_in_nonblock");
+    my $logged_in_nb =
+      $is_initialized->under("/")->to("login#logged_in_nonblock");
 
     $r->any("/init")->to("init#init_fls")->name("init");
     $logged_in_nb->any("/")->to("show_list#index")->name("index");
