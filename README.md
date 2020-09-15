@@ -15,8 +15,8 @@ docker-compose -f docker-compose.dgserv3.flsp.yaml build
 
 ```bash
 # configure findlocalshows-perl
-cp flsp.config.example.env flsp.config.env
-vim flsp.config.env
+cp config.example.env config.env
+vim config.env
 
 # deploy containers
 docker-compose -f docker-compose.dgserv3.flsp.yaml up -d

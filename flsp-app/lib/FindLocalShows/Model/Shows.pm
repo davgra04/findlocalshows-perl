@@ -14,7 +14,7 @@ use DateTime::Format::Strptime;
 
 sub new($class, $dbh) {
 
-	my $hash = {
+    my $hash = {
         dbh => $dbh, 
         strp => DateTime::Format::Strptime->new(
             pattern => "%Y-%m-%dT%H:%M:%S",
@@ -22,7 +22,7 @@ sub new($class, $dbh) {
             time_zone => "America/Chicago",
         )
     };
-	return bless $hash, $class;
+    return bless $hash, $class;
 }
 
 sub get_upcoming_shows ($self, $region) {
@@ -92,7 +92,7 @@ sub get_upcoming_shows ($self, $region) {
     # say("showinfo: ".Dumper($showinfo));
     # say("artist_ids: ".Dumper(%artist_ids));
 
-	# return $SHOWINFO;
+    # return $SHOWINFO;
     return $showinfo;
 }
 

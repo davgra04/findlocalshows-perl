@@ -90,8 +90,8 @@ sub update_artist($dbh, $id, $artist, $artist_info) {
         my ($artists_table_id) = $dbh->last_insert_id(undef, undef, "artists", undef);
 
         ### mark artist as initialized
-		my $upd_stmt = $dbh->prepare("UPDATE followed_artists SET first_query_complete = TRUE, artist_id = ? WHERE id = ?");
-		$rv = $upd_stmt->execute($artist_info->{id}, $id);
+        my $upd_stmt = $dbh->prepare("UPDATE followed_artists SET first_query_complete = TRUE, artist_id = ? WHERE id = ?");
+        $rv = $upd_stmt->execute($artist_info->{id}, $id);
         unless ( $rv ) {
             ERROR("problem marking artist as initialized: " . $upd_stmt->errstr);
             $dbh->rollback;

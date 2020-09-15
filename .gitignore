@@ -1,6 +1,6 @@
 # my .gitignore
 .vstags
-flsp.config.env
+config.env
 docker/image-flsp-app/flsp-app
 docker/image-flsp-db/schema.sql
 docker/image-flsp-core/flsp-core
