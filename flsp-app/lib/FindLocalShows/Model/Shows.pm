@@ -61,6 +61,8 @@ sub get_upcoming_shows ( $self, $region ) {
             my $venue   = decode_json $venue_json;
             my $name    = $artist_names{$id};
             my $show_dt = $self->{strp}->parse_datetime($datetime);
+            my $location = "$city, $show_region";
+            $location = "Virtual" if ( $show_region eq "Virtual" );
 
             push(
                 @shows,
@@ -73,7 +75,7 @@ sub get_upcoming_shows ( $self, $region ) {
                     },
                     artist   => $name,
                     venue    => $venue->{name},
-                    location => "$city, $show_region",
+                    location => $location,
                 }
             );
 
