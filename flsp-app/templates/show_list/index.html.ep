@@ -19,10 +19,21 @@
 % }
 
 % my $showinfo = shows->get_upcoming_shows($region);
+% my @supported_regions_selector_list = regions->get_supported_regions();
+% for my $r (@supported_regions_selector_list) {
+%     $r = [$r => $r, selected => "selected"] if $r eq $region;
+% }
 
-<div class="panel" id="stats">
-    <div>Following <%= artists->get_count %> artists</div>
-    <div><%= $showinfo->{num_shows} %> upcoming shows from <%= $showinfo->{num_artists} %> artists in <%= $region %></div>
+<div class="panel" id="topinfopanel">
+    <div id="stats">
+        <div>Following <%= artists->get_count %> artists</div>
+        <div><%= $showinfo->{num_shows} %> upcoming shows from <%= $showinfo->{num_artists} %> artists in <%= $region %></div>
+    </div>
+
+    %= form_for "/" => (method => "GET") => (id => "region_select_form") => begin
+        <%= select_field region => [@supported_regions_selector_list], id => "region_select" %>
+    % end
+
 </div>
 
 <div class="panel" id="showlist">
@@ -67,4 +78,6 @@
     % unless ( $show_count ) {
         <p id="no-shows-msg">no upcoming shows</p>
     % }
+
+    <script src="/showlist.js"></script>
 </div>

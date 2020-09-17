@@ -5,7 +5,7 @@ ARG ROOT="/usr/src/flsp-app"
 
 WORKDIR $ROOT
 COPY Makefile.PL .
-COPY lib/FindLocalShows.pm ./lib/FindLocalShows.pm
+# COPY lib/FindLocalShows.pm ./lib/FindLocalShows.pm
 
 RUN perl Makefile.PL \
   && cpanm --no-wget --installdeps --notest . \

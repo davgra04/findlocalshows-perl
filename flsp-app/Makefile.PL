@@ -5,7 +5,8 @@ use ExtUtils::MakeMaker;
 
 my %WriteMakefileArgs = (
     NAME               => "FindLocalShows",
-    VERSION_FROM       => "lib/FindLocalShows.pm",
+    # VERSION_FROM       => "lib/FindLocalShows.pm",
+    VERSION            => "0.0.1",
     AUTHOR             => q{David <dgravesdev@gmail.com>},
     ABSTRACT           => "An implementation of FindLocalShows using Perl and the Mojolicious web framework.",
     LICENSE            => "artistic_2",

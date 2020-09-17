@@ -29,18 +29,16 @@ sub get_upcoming_shows ( $self, $region ) {
     my $showinfo = { shows => [] };
 
     # obtain artist names
-    my $artist_names_array =
-      $self->{dbh}->selectall_arrayref("SELECT bit_id, name FROM artists");
+    my $artist_names_array = $self->{dbh}->selectall_arrayref("SELECT bit_id, name FROM artists");
     my %artist_names;
     for my $row (@$artist_names_array) {
         $artist_names{ $row->[0] } = $row->[1];
     }
 
     # obtain artist ids
-    my $artist_ids_array =
-      $self->{dbh}->selectcol_arrayref(
-"SELECT artist_id FROM followed_artists WHERE deleted IS FALSE AND first_query_complete IS TRUE"
-      );
+    my $artist_ids_array = $self->{dbh}->selectcol_arrayref(
+        "SELECT artist_id FROM followed_artists WHERE deleted IS FALSE AND first_query_complete IS TRUE"
+    );
     my %artist_ids;
     map { $artist_ids{$_} = 0 } @$artist_ids_array;
 
@@ -48,10 +46,9 @@ sub get_upcoming_shows ( $self, $region ) {
     my $dt_now     = DateTime->now;
     my $dt_now_str = $dt_now->strftime("%Y-%m-%dT%H:%M:%S");
 
-    my $sel_shows =
-      $self->{dbh}->prepare(
-"SELECT artist_id, datetime, venue, region, city FROM events WHERE datetime > ? AND region = ? AND country = ? ORDER BY datetime ASC"
-      );
+    my $sel_shows = $self->{dbh}->prepare(
+        "SELECT artist_id, datetime, venue, region, city FROM events WHERE datetime > ? AND region = ? AND country = ? ORDER BY datetime ASC"
+    );
     my $rv = $sel_shows->execute( $dt_now_str, $region, "United States" );
 
     my @shows;
