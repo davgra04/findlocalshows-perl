@@ -43,8 +43,7 @@ sub connect_to_database ( $self ) {
 sub get_secret ( $self, $dbh ) {
 
     # try to obtain secret from database
-    my $row = $dbh->selectrow_arrayref(
-        "SELECT secret FROM settings ORDER BY id ASC LIMIT 1");
+    my $row = $dbh->selectrow_arrayref("SELECT secret FROM settings ORDER BY id ASC LIMIT 1");
     die $dbh->errstr if ( defined $dbh->errstr );   # encountered database error
     if ( defined $row ) {
         $self->app->log->debug("using flsp-app secret from database");
@@ -68,8 +67,16 @@ sub get_secret ( $self, $dbh ) {
 
 sub startup ($self) {
 
+    # load dbh from test configuration
+    my $test_config = $self->plugin("Config", {default => {}});
+    my $dbh = $test_config->{dbh};
+
     # connect to db
-    my $dbh = $self->connect_to_database();
+    if ( defined($dbh) ) {
+        $self->app->log->debug("using testing database");
+    } else {
+        $dbh = $self->connect_to_database() unless( defined($dbh) );
+    }
 
     # set secret
     my $secret = $self->get_secret($dbh);

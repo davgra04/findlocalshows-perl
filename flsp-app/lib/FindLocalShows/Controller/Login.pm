@@ -6,9 +6,7 @@ sub login ($self) {
     my $entered_pass = $self->req->body_params->param("pass") // "";
     my $stored_pass  = $self->users->get_password_from_db($user);
 
-    unless ( $stored_pass
-        && $self->bcrypt_validate( $entered_pass, $stored_pass ) )
-    {
+    unless ( $stored_pass && $self->bcrypt_validate( $entered_pass, $stored_pass ) ) {
         $self->flash( message => "Invalid username or password." );
         return $self->render;
     }

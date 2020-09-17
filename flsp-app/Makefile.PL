@@ -23,6 +23,7 @@ my %WriteMakefileArgs = (
         "JSON::XS"                    => "0",
         "Mojolicious::Plugin::Bcrypt" => "0",
         "Mojolicious"                 => "8.59",
+        "Test::PostgreSQL"            => "0",
     },
     dist  => { COMPRESS => "gzip -9f", SUFFIX => "gz", },
     clean => { FILES    => "*.tar.gz" },
