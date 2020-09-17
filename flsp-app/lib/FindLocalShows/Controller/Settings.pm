@@ -5,8 +5,9 @@ sub settings ($self) {
 
     my $remove_id  = $self->req->body_params->param("remove-id");
     my $new_artist = $self->req->body_params->param("new-artist");
+    my $default_region = $self->req->body_params->param("region");
 
-    if ($remove_id) {
+    if ( defined($remove_id) ) {
         $self->app->log->debug("REMOVING ARTIST");
         $self->app->log->debug("\$remove_id: $remove_id");
         my $name = $self->app->artists->remove_artist($remove_id);
@@ -18,11 +19,16 @@ sub settings ($self) {
         }
         $self->redirect_to("settings");
     }
-    elsif ($new_artist) {
+    elsif ( defined($new_artist) ) {
         $self->app->log->debug("ADDING ARTIST");
         $self->app->log->debug("\$new_artist: $new_artist");
         $self->app->artists->add_artist($new_artist);
         $self->flash( message => "Added $new_artist." );
+        $self->redirect_to("settings");
+    } 
+    elsif ( defined($default_region) ) {
+        $self->app->regions->set_default_region($default_region);
+        $self->flash( message => "Set default region to $default_region." );
         $self->redirect_to("settings");
     }
 

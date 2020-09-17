@@ -13,16 +13,13 @@ sub new ( $class, $dbh ) {
 }
 
 sub add_user ( $self, $user, $encrypted_pass ) {
-
     # insert into DB
-    my $ins_stmt = $self->{dbh}
-      ->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
-    $ins_stmt->execute( $user, $encrypted_pass );
+    my $ins_stmt = $self->{dbh}->prepare("INSERT INTO users (username, password, default_region) VALUES (?, ?, ?)");
+    $ins_stmt->execute( $user, $encrypted_pass, 44 );
 }
 
 sub get_password_from_db ( $self, $user ) {
-    my $sel_stmt =
-      $self->{dbh}->prepare("SELECT password FROM users WHERE username = ?");
+    my $sel_stmt = $self->{dbh}->prepare("SELECT password FROM users WHERE username = ?");
     $sel_stmt->execute($user);
     my ($encrypted_pass) = $sel_stmt->fetchrow();
     return $encrypted_pass;

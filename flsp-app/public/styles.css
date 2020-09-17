@@ -55,18 +55,31 @@ body {
     align-items: center;
 }
 
+/* INPUT STUFF */
+
 #region_select_form {
     margin-left: auto;
 }
 
-#region_select {
+#region_select, #default_region_select {
     display: block;
     font-size: 16px;
     font-weight: 700;
-    color: #00c0d3;
+    /* color: #00c0d3; */
     padding: 8px;
     border-radius: .5em;
     background-color: #fff;
+}
+
+.panel form input {
+    /* display: block; */
+    font-size: 16px;
+    font-weight: 700;
+    /* color: #00c0d3; */
+    padding: 8px;
+    border-radius: .5em;
+    border-width: 1px;
+    /* background-color: #fff; */
 }
 
 /* FOOTER STUFF */
@@ -168,6 +181,27 @@ hr {
 }
 
 /* SETTINGS STUFF */
+
+
+.panel h3 {
+    margin: 0;
+    color: #00c0d3;
+}
+
+.setting-description {
+    font-size: small;
+    margin-inline-start: 0.5em;
+    margin-inline-end: 0.5em;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+}
+.setting-control {
+    padding-top: 1em;
+}
+
+#new-artist {
+    width: auto;
+}
 
 #followed-artists-list {
     display: grid;

@@ -13,22 +13,52 @@
 </div>
 % }
 
+
+% my @supported_regions_selector_list = regions->get_supported_regions();
+% my $default_region = regions->get_default_region();
+% for my $r (@supported_regions_selector_list) {
+%     $r = [$r => $r, selected => "selected"] if $r eq $default_region;
+% }
+
+<div class="panel" id="settings-default-region">
+    <h3>Default Region</h3>
+    <p class="setting-description">
+        Sets which region to show by default.
+    </p>
+
+    <div class="setting-control">
+        %= form_for settings => (method => "POST") => (id => "default_region_select_form") => begin
+            <%= select_field region => [@supported_regions_selector_list], id => "default_region_select" %>
+        % end
+    </div>
+</div>
+
 <div class="panel" id="settings-followed-artists">
     <h3>Followed Artists</h3>
 
-    %= form_for settings => (method => "POST") => begin
-        %= text_field "new-artist"
-        %= submit_button "Add Artist"
-    % end
-    %= form_for settings => (method => "POST") => begin
-    <div id="followed-artists-list">
-        % for my $artist ( artists->get_artists ) {
-            <div class="followed-artists-list-control">
-                <button class="del-btn" type="submit" name="remove-id" value=<%= $artist->{id} %> ><img class="close-button" src="/close-black-18dp.svg"></button>
-                <div> <%= $artist->{name} %> </div>
-            </div>
-        %}
+    <p class="setting-description">
+        Add or remove artists from the list of followed artists.
+    </p>
+
+    <div class="setting-control">
+        %= form_for settings => (method => "POST")  => (id => "add_artist_form") => begin
+            %= text_field "new-artist" => (id => "new-artist")
+            %= submit_button "Add Artist"
+        % end
+    </div>
+
+    <div class="setting-control">
+        %= form_for settings => (method => "POST")  => (id => "remove_artist_form") => begin
+        <div id="followed-artists-list">
+            % for my $artist ( artists->get_artists ) {
+                <div class="followed-artists-list-control">
+                    <button class="del-btn" type="submit" name="remove-id" value=<%= $artist->{id} %> ><img class="close-button" src="/close-black-18dp.svg"></button>
+                    <div> <%= $artist->{name} %> </div>
+                </div>
+            %}
+        </div>
     </div>
     % end
 
+    <script src="/settings.js"></script>
 </div>

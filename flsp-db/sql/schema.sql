@@ -5,7 +5,7 @@
 
 -- contains artist data queried from bandsintown
 CREATE TABLE artists (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT,
     bit_id TEXT UNIQUE,
     url TEXT,
@@ -18,7 +18,7 @@ CREATE TABLE artists (
 
 -- contains event data queried from bandsintown
 CREATE TABLE events (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     artist_id TEXT REFERENCES artists(bit_id),
     event_id TEXT,
     url TEXT,
@@ -27,6 +27,7 @@ CREATE TABLE events (
     description TEXT,
     title TEXT,
     venue TEXT,
+    virtual BOOLEAN,
     country TEXT,
     region TEXT,
     city TEXT,
@@ -34,30 +35,31 @@ CREATE TABLE events (
     added TIMESTAMP
 );
 
+-- contains list of findlocalshows-supported regions
+CREATE TABLE supported_regions (
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    region TEXT
+);
+
 -- contiains users and their associated password and settings
 CREATE TABLE users (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     username TEXT,
-    password TEXT
+    password TEXT,
+    default_region INT REFERENCES supported_regions(id)
 );
 
 -- contiains list of artists followed by the user
 CREATE TABLE followed_artists (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name TEXT,
     first_query_complete BOOLEAN NOT NULL,
     deleted BOOLEAN NOT NULL,
     artist_id TEXT REFERENCES artists(bit_id)
 );
 
--- contains list of findlocalshows-supported regions
-CREATE TABLE supported_regions (
-    id INT GENERATED ALWAYS AS IDENTITY,
-    region TEXT
-);
-
 CREATE TABLE settings (
-    id INT GENERATED ALWAYS AS IDENTITY,
+    id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     secret TEXT NOT NULL
 );
 
