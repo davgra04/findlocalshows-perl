@@ -1,7 +1,9 @@
 % layout "default";
 
 <div id="topbar">
-    <h1>FindLocalShows</h1>
+    <a href="/" id="logo-link">
+        <h1>FindLocalShows</h1>
+    </a>
     <div id="topbar-links">
     % if ( $logged_in ) {
         <%= link_to Settings => "settings" %>
@@ -50,27 +52,29 @@
             <hr>
         % }
 
-        <div class="show">
-            <div class="date">
-                <div class="date-month">
-                    <%= $show->{date}->{month} %>
+        %= link_to "/event/$show->{event_id}" => {class => "show-link"} => begin
+            <div class="show">
+                <div class="date">
+                    <div class="date-month">
+                        <%= $show->{date}->{month} %>
+                    </div>
+                    <div class="date-day">
+                        <%= $show->{date}->{day} %>
+                    </div>
+                    <div class="date-dow">
+                        <%= $show->{date}->{dow} %>
+                    </div>
                 </div>
-                <div class="date-day">
-                    <%= $show->{date}->{day} %>
-                </div>
-                <div class="date-dow">
-                    <%= $show->{date}->{dow} %>
+                <div class="artist-and-place">
+                    <div class="artist">
+                        <%= $show->{artist} %>
+                    </div>
+                    <div class="place">
+                        <%= $show->{location} %> · <%= $show->{venue} %>
+                    </div>
                 </div>
             </div>
-            <div class="artist-and-place">
-                <div class="artist">
-                    <%= $show->{artist} %>
-                </div>
-                <div class="place">
-                    <%= $show->{location} %> · <%= $show->{venue} %>
-                </div>
-            </div>
-        </div>
+        %= end
         
         % $show_count++
     %}

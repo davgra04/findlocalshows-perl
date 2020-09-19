@@ -13,7 +13,7 @@ sub login ($self) {
 
     $self->session( user => $user );
     $self->flash( message => "Welcome back $user." );
-    $self->redirect_to("index");
+    $self->redirect_to("show_list");
 }
 
 sub logged_in ($self) {
@@ -35,7 +35,7 @@ sub logged_in_nonblock ($self) {
 
 sub logout ($self) {
     $self->session( expires => 1 );
-    $self->redirect_to("index");
+    $self->redirect_to("show_list");
 }
 
 1;

@@ -6,6 +6,11 @@ body {
 
 /* TOP BAR STUFF */
 
+#logo-link:link, #logo-link:hover, #logo-link:visited {
+    text-decoration: none;
+    color: white;
+}
+
 #topbar {
     background-color: #00c0d3;
     display: flex;
@@ -118,6 +123,11 @@ hr {
     color: white;
 }
 
+#showlist a {
+    text-decoration: none;
+    color: black;
+}
+
 .show {
     display: flex;
     flex-flow: row nowrap;
@@ -180,10 +190,38 @@ hr {
     color: #00c0de;
 }
 
+/* EVENT PAGE STUFF */
+
+.event-page-artist {
+    color: #00c0d3;
+}
+
+/* #show-detail-list { */
+    /* border: 1px solid black; */
+/* } */
+
+.show-aspect {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding-right: .25em;
+    padding-left: .25em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+}
+
+.show-aspect-key {
+    color: #00c0d3;
+    font-weight: bold;
+}
+
+.event-link {
+    color: #00c0d3;
+}
+
 /* SETTINGS STUFF */
 
 
-.panel h3 {
+.setting-header {
     margin: 0;
     color: #00c0d3;
 }

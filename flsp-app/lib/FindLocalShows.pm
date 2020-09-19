@@ -113,7 +113,8 @@ sub startup ($self) {
 
     # set up routes
     $r->any("/init")->to("init#init_fls")->name("init");
-    $logged_in_nb->any("/")->to("show_list#index")->name("index");
+    $logged_in_nb->any("/")->to("show_list#show_list")->name("show_list");
+    $logged_in_nb->any("/event/:event_id")->to("event_page#event_page")->name("event_page");
     $is_initialized->any("/login")->to("login#login")->name("login");
     $is_initialized->get("/logout")->to("login#logout");
     $logged_in->any("/settings")->to("settings#settings");

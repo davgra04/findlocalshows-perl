@@ -47,13 +47,13 @@ sub get_upcoming_shows ( $self, $region ) {
     my $dt_now_str = $dt_now->strftime("%Y-%m-%dT%H:%M:%S");
 
     my $sel_shows = $self->{dbh}->prepare(
-        "SELECT artist_id, datetime, venue, region, city FROM events WHERE datetime > ? AND region = ? AND country = ? ORDER BY datetime ASC"
+        "SELECT artist_id, event_id, datetime, venue, region, city FROM events WHERE datetime > ? AND region = ? AND country = ? ORDER BY datetime ASC"
     );
     my $rv = $sel_shows->execute( $dt_now_str, $region, "United States" );
 
     my @shows;
     while ( my @row = $sel_shows->fetchrow() ) {
-        my ( $id, $datetime, $venue_json, $show_region, $city ) = @row;
+        my ( $id, $event_id, $datetime, $venue_json, $show_region, $city ) = @row;
 
         if ( exists $artist_ids{$id} ) {
             $artist_ids{$id}++;
@@ -76,6 +76,7 @@ sub get_upcoming_shows ( $self, $region ) {
                     artist   => $name,
                     venue    => $venue->{name},
                     location => $location,
+                    event_id => $event_id
                 }
             );
 
@@ -96,12 +97,46 @@ sub get_upcoming_shows ( $self, $region ) {
     # get show count
     $showinfo->{num_shows} = scalar @shows;
 
-    # say("shows: ".Dumper(@shows));
-    # say("showinfo: ".Dumper($showinfo));
-    # say("artist_ids: ".Dumper(%artist_ids));
-
-    # return $SHOWINFO;
     return $showinfo;
+}
+
+sub get_show_info( $self, $event_id ) {
+
+    my $sel_event = $self->{dbh}->prepare(
+        "SELECT id, artist_id, url, on_sale_datetime, datetime, description, title, venue, virtual, country, region, city, lineup, added FROM events WHERE event_id = ?"
+    );
+    $sel_event->execute( $event_id );
+    my $row = $sel_event->fetchrow_arrayref;
+    return undef unless defined($row);
+
+    my ($id, $artist_id, $url, $on_sale_datetime, $datetime, $description, $title, $venue_json, $virtual, $country, $region, $city, $lineup_json, $added) = @$row;
+
+    my $venue   = decode_json $venue_json;
+
+    $lineup_json =~ s/{/[/g;
+    $lineup_json =~ s/}/]/g;
+    my $lineup   = decode_json $lineup_json;
+
+    my $show_dt = $self->{strp}->parse_datetime($datetime);
+    my $fmt_datetime = $show_dt->strftime("%A %B %d, %Y");
+
+    return {
+        id => $id,
+        artist_id => $artist_id,
+        url => $url,
+        on_sale_datetime => $on_sale_datetime,
+        datetime => $datetime,
+        fmt_datetime => $fmt_datetime,
+        description => $description,
+        title => $title,
+        venue => $venue,
+        virtual => $virtual,
+        country => $country,
+        region => $region,
+        city => $city,
+        lineup => $lineup,
+        added => $added,
+    };
 }
 
 1;

@@ -3,7 +3,7 @@
 <div id="topbar">
     <h1>Log In</h1>
     <div id="topbar-links">
-        <div> <%= link_to "Back to Shows" => "index" %> </div>
+        <div> <%= link_to "Back to Shows" => "show_list" %> </div>
     </div>
 </div>
 

@@ -1,0 +1,101 @@
+% layout "default";
+
+<div id="topbar">
+    <a href="/" id="logo-link">
+        <h1>FindLocalShows</h1>
+    </a>
+    <div id="topbar-links">
+    % if ( $logged_in ) {
+        <%= link_to Settings => "settings" %>
+        <%= link_to Logout => "logout" %>
+    % } else {
+        <%= link_to Login => "login" %>
+    % }
+    </div>
+</div>
+
+% if (my $msg = flash "message") {
+<div class="panel" id="message">
+    <b><%= $msg %></b><br>
+</div>
+% }
+
+<div class="panel" id="event-details">
+    %= image $show->{artist_info}->{thumb_url}
+    <h1 class="event-page-artist">
+        <%= $show->{artist_info}->{name} %>
+    </h1>
+    <h2>
+        <%= $show->{fmt_datetime} %>
+    </h2>
+    % if ( $show->{title} ) {
+    <h3>
+        <%= $show->{title} %>
+    </h3>
+    % }
+    <h3>
+        % if ( $show->{venue}->{location} ) {
+            <%= $show->{venue}->{location} %> · <%= $show->{venue}->{name} %>
+        % } else {
+            <%= $show->{venue}->{name} %>
+        % }
+    </h3>
+
+    <div id="show-detail-list">
+
+        % if ( $show->{Description} ) {
+        <div class="show-aspect">
+            <div class="show-aspect-key">Description</div>
+            <div class="show-aspect-value">
+                <%= $show->{Description} %>
+            </div>
+        </div>
+        % }
+
+        <div class="show-aspect">
+            <div class="show-aspect-key">Lineup</div>
+            <div class="show-aspect-value">
+                % for my $act (@{$show->{lineup}}) {
+                    <%= $act %><br>
+                %}
+            </div>
+        </div>
+
+        <div class="show-aspect">
+            <div class="show-aspect-key">Show Added</div>
+            <div class="show-aspect-value">
+                <%= $show->{added} %>
+            </div>
+        </div>
+
+        % if ( $show->{on_sale_datetime} ) {
+        <div class="show-aspect">
+            <div class="show-aspect-key">Tickets On Sale</div>
+            <div class="show-aspect-value">
+                <%= $show->{on_sale_datetime} %>
+            </div>
+        </div>
+        % }
+
+
+        <div class="show-aspect">
+            <div class="show-aspect-key">Links</div>
+            <div class="show-aspect-value">
+                %= link_to $show->{url} => ( class => "event-link" ) => begin
+                    Bandsintown Event Page
+                %= end
+                <br>
+                %= link_to $show->{artist_info}->{url} => ( class => "event-link" ) => begin
+                    Bandsintown Artist Page
+                %= end
+                <br>
+                %= link_to $show->{artist_info}->{facebook_page_url} => ( class => "event-link" ) => begin
+                    Artist Facebook Page
+                %= end
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
