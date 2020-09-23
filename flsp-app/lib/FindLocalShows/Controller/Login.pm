@@ -39,3 +39,48 @@ sub logout ($self) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Controller::Login - Controller object for the login page
+
+=head1 DESCRIPTION
+
+This controller produces a login page on GET requests, and authorizes the client
+on a POST request with valid credentials
+
+=head2 Methods
+
+=over 12
+
+=item C<login>
+
+Mojolicious action subroutine that produces a login page on GET requests, and 
+authorizes the client on a POST request with valid credentials.
+
+=item C<logged_in>
+
+Returns 1 if user has authenticated session, otherwise redirects to /login and
+returns undef.
+
+=item C<logged_in_nonblock>
+
+Adds value to stash indicatign whether the user is logged on.
+
+=item C<logout>
+
+Expires the current user's session and redirects to the show list.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

@@ -122,3 +122,59 @@ sub startup ($self) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows - The FindLocalShows Mojolicious web app
+
+=head1 SYNOPSIS
+
+    #!/usr/bin/env perl
+
+    use strict;
+    use warnings;
+
+    use Mojo::File qw(curfile);
+    use lib curfile->dirname->sibling("lib")->to_string;
+    use Mojolicious::Commands;
+
+    # start command line interface for application
+    Mojolicious::Commands->start_app("FindLocalShows");
+
+=head1 DESCRIPTION
+
+This web application lets you specify a list of bands and artists to follow, and
+queries the bandsintown.com API to provide a list of upcoming shows by state.
+
+=head2 Methods
+
+=over 12
+
+=item C<connect_to_database>
+
+Connects to the database and returns the database handle. Will die if there is 
+an error connecting.
+
+=item C<get_secret>
+
+Will try to obtain the application secret from the database, then from the 
+environment configuration, and die if niether provide it.
+
+=item C<startup>
+
+Main Mojolicious startup subroutine. Configures app, sets plugins, helpers, and
+routes. 
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

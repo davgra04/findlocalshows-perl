@@ -99,3 +99,53 @@ sub remove_artist ( $self, $id ) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Model::Artists - Model object for artists
+
+=head1 DESCRIPTION
+
+This model handles reading and writing artist data.
+
+=head2 Methods
+
+=over 12
+
+=item C<new>
+
+Creates a new artists model object.
+
+=item C<add_artist>
+
+Adds an artist to the followed artists table
+
+=item C<get_artists>
+
+Returns a list of followed artists.
+
+=item C<get_count>
+
+Returns a count of followed artists.
+
+=item C<get_artist_info>
+
+Returns saved bandsintown artist data for an artist.
+
+=item C<remove_artist>
+
+Deletes an artist from the followed artists table.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

@@ -100,7 +100,7 @@ sub get_upcoming_shows ( $self, $region ) {
     return $showinfo;
 }
 
-sub get_show_info( $self, $event_id ) {
+sub get_show_info ( $self, $event_id ) {
 
     my $sel_event = $self->{dbh}->prepare(
         "SELECT id, artist_id, url, on_sale_datetime, datetime, description, title, venue, virtual, country, region, city, lineup, added FROM events WHERE event_id = ?"
@@ -140,3 +140,41 @@ sub get_show_info( $self, $event_id ) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Model::Shows - Model object for shows
+
+=head1 DESCRIPTION
+
+This model handles reading show data.
+
+=head2 Methods
+
+=over 12
+
+=item C<new>
+
+Creates a new shows model object.
+
+=item C<get_upcoming_shows>
+
+Returns a list of upcoming show data for all followed artists in a region.
+
+=item C<get_show_info>
+
+Returns detailed show info for a particular show.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

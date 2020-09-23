@@ -36,3 +36,34 @@ sub settings ($self) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Controller::Settings - Controller object for the settings page
+
+=head1 DESCRIPTION
+
+This controller produces a settings page on GET requests, and makes settings
+changes on POST request.
+
+=head2 Methods
+
+=over 12
+
+=item C<settings>
+
+Mojolicious action subroutine for the settings page, see DESCRIPTION.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

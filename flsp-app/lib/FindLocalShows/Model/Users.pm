@@ -34,3 +34,47 @@ sub has_admin_user ($self) {
 }
 
 1;
+
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Model::Users - Model object for users
+
+=head1 DESCRIPTION
+
+This model handles reading and writing user data.
+
+=head2 Methods
+
+=over 12
+
+=item C<new>
+
+Creates a new users model object.
+
+=item C<add_user>
+
+Adds a user given a username and password.
+
+=item C<get_password_from_db>
+
+Returns hashed password from database for main user.
+
+=item C<has_admin_user>
+
+Returns 1 if FindLocalShows has been initialized with a user and password, returns
+undef otherwise.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

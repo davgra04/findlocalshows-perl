@@ -39,3 +39,45 @@ sub set_default_region ($self, $region) {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+FindLocalShows::Model::Regions - Model object for regions
+
+=head1 DESCRIPTION
+
+This model handles reading and writing region data.
+
+=head2 Methods
+
+=over 12
+
+=item C<new>
+
+Creates a new regions model object.
+
+=item C<get_supported_regions>
+
+Returns a list of regions supported by the app.
+
+=item C<get_default_region>
+
+Returns the default region.
+
+=item C<set_default_region>
+
+Sets the default region.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut

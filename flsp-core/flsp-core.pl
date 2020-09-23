@@ -279,3 +279,57 @@ while (1) {
     sleep(3);
 
 }
+
+__END__
+
+=head1 NAME
+
+flsp-core.pl - Periodically queries bandsintown.com API for new shows.
+
+=head1 DESCRIPTION
+
+This script runs in a loop and queries teh bandsintown.com API for new show data
+when the refresh period is encountered, or when a new artist is detected in the
+followed_artists table.
+
+=head2 Methods
+
+=over 12
+
+=item C<query_bandsintown_artist>
+
+Makes a request to the bandsintown.com API for artist data.
+
+=item C<query_bandsintown_shows>
+
+Makes a request to the bandsintown.com API for show data.
+
+=item C<update_artist>
+
+Adds new artist details to the database.
+
+=item C<update_showlist>
+
+Adds new events to the database.
+
+=item C<check_new_artists>
+
+Detects newly added artists to the followed_artists table, and populates the
+artist details with bandsintown.com data.
+
+=item C<query_all_artists>
+
+Triggers queries for upcoming shows for all followed artists.
+
+=back
+
+=head1 LICENSE
+
+This is released under the Artistic License 2.0. See L<perlartistic>.
+
+=head1 AUTHOR
+
+davgra04 - L<https://github.com/davgra04>
+
+=cut
+
