@@ -5,7 +5,7 @@ findlocalshows-perl
 
 FindLocalShows is a single-user web application for tracking upcoming shows from a list of artists. The main show list is public and shareable, while application settings are protected with authentication.
 
-This implementation of FindLocalShows usies Perl and the Mojolicious web framework.
+This implementation of FindLocalShows uses Perl and the Mojolicious web framework.
 
 *NOTE: this application assumes deployment behind a reverse proxy that provides TLS.*
 
